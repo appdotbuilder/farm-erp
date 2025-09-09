@@ -3,7 +3,7 @@ import { Icon } from '@/components/icon';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { NavigationMenu, NavigationMenuItem, NavigationMenuList, navigationMenuTriggerStyle } from '@/components/ui/navigation-menu';
+import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList } from '@/components/ui/navigation-menu';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { UserMenuContent } from '@/components/user-menu-content';
@@ -36,7 +36,7 @@ const rightNavItems: NavItem[] = [
     },
 ];
 
-const activeItemStyles = 'text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100';
+
 
 interface AppHeaderProps {
     breadcrumbs?: BreadcrumbItem[];
@@ -104,17 +104,19 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                             <NavigationMenuList className="flex h-full items-stretch space-x-2">
                                 {mainNavItems.map((item, index) => (
                                     <NavigationMenuItem key={index} className="relative flex h-full items-center">
-                                        <Link
-                                            href={item.href}
+                                        <NavigationMenuLink
+                                            asChild
                                             className={cn(
-                                                navigationMenuTriggerStyle(),
-                                                page.url === item.href && activeItemStyles,
+                                                'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-[color,box-shadow] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*=\'size-\'])]:size-4 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-background hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
+                                                page.url === item.href && 'bg-accent text-accent-foreground',
                                                 'h-9 cursor-pointer px-3',
                                             )}
                                         >
-                                            {item.icon && <Icon iconNode={item.icon} className="mr-2 h-4 w-4" />}
-                                            {item.title}
-                                        </Link>
+                                            <Link href={item.href} prefetch>
+                                                {item.icon && <Icon iconNode={item.icon} className="mr-2 h-4 w-4" />}
+                                                {item.title}
+                                            </Link>
+                                        </NavigationMenuLink>
                                         {page.url === item.href && (
                                             <div className="absolute bottom-0 left-0 h-0.5 w-full translate-y-px bg-black dark:bg-white"></div>
                                         )}
