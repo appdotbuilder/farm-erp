@@ -15,25 +15,25 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string|null $address
  * @property string|null $phone
  * @property string|null $email
- * @property bool $is_active
+ * @property bool $active
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * 
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\BusinessUnit> $businessUnits
  * @property-read int|null $business_units_count
  * 
  * @method static \Illuminate\Database\Eloquent\Builder|HeadOffice newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|HeadOffice newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|HeadOffice query()
+ * @method static \Illuminate\Database\Eloquent\Builder|HeadOffice whereActive($value)
  * @method static \Illuminate\Database\Eloquent\Builder|HeadOffice whereAddress($value)
  * @method static \Illuminate\Database\Eloquent\Builder|HeadOffice whereCode($value)
  * @method static \Illuminate\Database\Eloquent\Builder|HeadOffice whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|HeadOffice whereEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder|HeadOffice whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|HeadOffice whereIsActive($value)
  * @method static \Illuminate\Database\Eloquent\Builder|HeadOffice whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|HeadOffice wherePhone($value)
  * @method static \Illuminate\Database\Eloquent\Builder|HeadOffice whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|HeadOffice active()
  * @method static \Database\Factories\HeadOfficeFactory factory($count = null, $state = [])
  * 
  * @mixin \Eloquent
@@ -53,7 +53,7 @@ class HeadOffice extends Model
         'address',
         'phone',
         'email',
-        'is_active',
+        'active',
     ];
 
     /**
@@ -62,11 +62,11 @@ class HeadOffice extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'is_active' => 'boolean',
+        'active' => 'boolean',
     ];
 
     /**
-     * Get the business units for this head office.
+     * Get the business units for the head office.
      */
     public function businessUnits(): HasMany
     {
@@ -75,12 +75,9 @@ class HeadOffice extends Model
 
     /**
      * Scope a query to only include active head offices.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeActive($query)
     {
-        return $query->where('is_active', true);
+        return $query->where('active', true);
     }
 }

@@ -4,44 +4,79 @@ import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { BookOpen, Building2, Folder, LayoutGrid, Package, Users, Warehouse, TrendingUp, Settings } from 'lucide-react';
+import { BookOpen, Building2, Folder, LayoutGrid, Package, Users, Warehouse, TrendingUp, Settings, Egg, Bird, TreePine, DollarSign, ShoppingCart, Calculator } from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
     {
-        title: 'ERP Dashboard',
+        title: '🏭 ERP Dashboard',
         href: '/erp-dashboard',
         icon: LayoutGrid,
     },
     {
-        title: 'Organizations',
+        title: '🐣 Breeding',
+        href: '/breeding',
+        icon: Egg,
+    },
+    {
+        title: '🥚 Hatchery',
+        href: '/hatchery',
+        icon: TreePine,
+    },
+    {
+        title: '🍗 Broiler',
+        href: '/broiler',
+        icon: Bird,
+    },
+    {
+        title: '🐓 Layer',
+        href: '/layer',
+        icon: Egg,
+    },
+    {
+        title: '🤖 RPA',
+        href: '/rpa',
+        icon: Settings,
+    },
+    {
+        title: '🏢 Organizations',
         href: '/organizations',
         icon: Building2,
     },
     {
-        title: 'Inventory',
+        title: '📦 Inventory',
         href: '/inventory',
         icon: Package,
     },
     {
-        title: 'Warehouses',
+        title: '🏪 Warehouses',
         href: '/warehouses',
         icon: Warehouse,
     },
     {
-        title: 'Employees',
+        title: '👥 Employees',
         href: '/employees',
         icon: Users,
     },
     {
-        title: 'Reports',
-        href: '/reports',
-        icon: TrendingUp,
+        title: '💰 Accounting',
+        href: '/accounting',
+        icon: Calculator,
     },
     {
-        title: 'Settings',
-        href: '/dashboard',
-        icon: Settings,
+        title: '🛒 Sales',
+        href: '/sales',
+        icon: ShoppingCart,
+    },
+    {
+        title: '💸 Expenses',
+        href: '/expenses',
+        icon: DollarSign,
+    },
+    {
+        title: '📊 Reports',
+        href: '/reports',
+        icon: TrendingUp,
     },
 ];
 

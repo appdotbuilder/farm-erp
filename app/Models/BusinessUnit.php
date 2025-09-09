@@ -18,9 +18,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string|null $address
  * @property string|null $phone
  * @property string|null $email
- * @property bool $is_active
+ * @property bool $active
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * 
  * @property-read \App\Models\HeadOffice $headOffice
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Warehouse> $warehouses
  * @property-read int|null $warehouses_count
@@ -30,19 +31,17 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|BusinessUnit newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|BusinessUnit newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|BusinessUnit query()
+ * @method static \Illuminate\Database\Eloquent\Builder|BusinessUnit whereActive($value)
  * @method static \Illuminate\Database\Eloquent\Builder|BusinessUnit whereAddress($value)
  * @method static \Illuminate\Database\Eloquent\Builder|BusinessUnit whereCode($value)
  * @method static \Illuminate\Database\Eloquent\Builder|BusinessUnit whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|BusinessUnit whereEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder|BusinessUnit whereHeadOfficeId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|BusinessUnit whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|BusinessUnit whereIsActive($value)
  * @method static \Illuminate\Database\Eloquent\Builder|BusinessUnit whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|BusinessUnit wherePhone($value)
  * @method static \Illuminate\Database\Eloquent\Builder|BusinessUnit whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|BusinessUnit whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|BusinessUnit active()
- * @method static \Illuminate\Database\Eloquent\Builder|BusinessUnit ofType(string $type)
  * @method static \Database\Factories\BusinessUnitFactory factory($count = null, $state = [])
  * 
  * @mixin \Eloquent
@@ -64,7 +63,7 @@ class BusinessUnit extends Model
         'address',
         'phone',
         'email',
-        'is_active',
+        'active',
     ];
 
     /**
@@ -73,11 +72,11 @@ class BusinessUnit extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'is_active' => 'boolean',
+        'active' => 'boolean',
     ];
 
     /**
-     * Get the head office that owns this business unit.
+     * Get the head office that owns the business unit.
      */
     public function headOffice(): BelongsTo
     {
@@ -85,7 +84,7 @@ class BusinessUnit extends Model
     }
 
     /**
-     * Get the warehouses for this business unit.
+     * Get the warehouses for the business unit.
      */
     public function warehouses(): HasMany
     {
@@ -93,7 +92,7 @@ class BusinessUnit extends Model
     }
 
     /**
-     * Get the employees for this business unit.
+     * Get the employees for the business unit.
      */
     public function employees(): HasMany
     {
@@ -102,24 +101,9 @@ class BusinessUnit extends Model
 
     /**
      * Scope a query to only include active business units.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeActive($query)
     {
-        return $query->where('is_active', true);
-    }
-
-    /**
-     * Scope a query to only include business units of a specific type.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @param  string  $type
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeOfType($query, string $type)
-    {
-        return $query->where('type', $type);
+        return $query->where('active', true);
     }
 }

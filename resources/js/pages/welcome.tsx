@@ -1,140 +1,305 @@
-import { type SharedData } from '@/types';
-import { Head, Link, usePage } from '@inertiajs/react';
+import React from 'react';
+import { Head, Link } from '@inertiajs/react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
-export default function Welcome() {
-    const { auth } = usePage<SharedData>().props;
+interface Props {
+    auth: {
+        user: {
+            name: string;
+        } | null;
+    };
+    [key: string]: unknown;
+}
 
+export default function Welcome({ auth }: Props) {
     return (
         <>
-            <Head title="Farm ERP System">
-                <link rel="preconnect" href="https://fonts.bunny.net" />
-                <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
-            </Head>
-            <div className="flex min-h-screen flex-col items-center bg-gradient-to-br from-green-50 to-blue-50 p-6 text-gray-900 lg:justify-center lg:p-8">
-                <header className="mb-6 w-full max-w-[335px] text-sm lg:max-w-6xl">
-                    <nav className="flex items-center justify-end gap-4">
-                        {auth.user ? (
-                            <Link
-                                href={route('home')}
-                                className="inline-block rounded-lg bg-green-600 px-6 py-3 text-sm font-medium text-white hover:bg-green-700 transition-colors"
-                            >
-                                Go to ERP Dashboard
-                            </Link>
-                        ) : (
-                            <>
-                                <Link
-                                    href={route('login')}
-                                    className="inline-block rounded-lg border border-green-600 px-6 py-3 text-sm font-medium text-green-600 hover:bg-green-50 transition-colors"
-                                >
-                                    Log in
-                                </Link>
-                                <Link
-                                    href={route('register')}
-                                    className="inline-block rounded-lg bg-green-600 px-6 py-3 text-sm font-medium text-white hover:bg-green-700 transition-colors"
-                                >
-                                    Get Started
-                                </Link>
-                            </>
-                        )}
-                    </nav>
-                </header>
-
-                <div className="flex w-full items-center justify-center lg:grow">
-                    <main className="flex w-full max-w-6xl flex-col lg:flex-row items-center gap-12">
-                        {/* Left Content */}
-                        <div className="flex-1 text-center lg:text-left">
-                            <div className="mb-6">
-                                <h1 className="text-5xl lg:text-7xl font-bold mb-4">
-                                    🐔 <span className="text-green-600">Farm ERP</span>
-                                </h1>
-                                <p className="text-xl lg:text-2xl text-gray-600 mb-8">
-                                    Complete farm management system for modern poultry operations
-                                </p>
-                            </div>
-
-                            {/* Key Features */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-                                <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-                                    <div className="text-2xl mb-2">🥚</div>
-                                    <h3 className="font-semibold mb-2">Breeding & Hatchery</h3>
-                                    <p className="text-gray-600 text-sm">Complete cycle management from breeding to DOC production</p>
-                                </div>
-                                <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-                                    <div className="text-2xl mb-2">🏭</div>
-                                    <h3 className="font-semibold mb-2">Production Management</h3>
-                                    <p className="text-gray-600 text-sm">Track broiler & layer operations with real-time monitoring</p>
-                                </div>
-                                <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-                                    <div className="text-2xl mb-2">📊</div>
-                                    <h3 className="font-semibold mb-2">Financial Control</h3>
-                                    <p className="text-gray-600 text-sm">Integrated accounting with cost tracking & budgeting</p>
-                                </div>
-                                <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-                                    <div className="text-2xl mb-2">📦</div>
-                                    <h3 className="font-semibold mb-2">Inventory & Procurement</h3>
-                                    <p className="text-gray-600 text-sm">Multi-warehouse inventory with automated stock management</p>
+            <Head title="🐔 Poultry Farm ERP" />
+            
+            <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
+                {/* Header */}
+                <header className="bg-white/80 backdrop-blur-sm border-b border-green-200">
+                    <div className="max-w-7xl mx-auto px-6 py-4">
+                        <div className="flex justify-between items-center">
+                            <div className="flex items-center space-x-3">
+                                <div className="text-3xl">🐔</div>
+                                <div>
+                                    <h1 className="text-2xl font-bold text-green-800">PoultryFarm ERP</h1>
+                                    <p className="text-sm text-green-600">Complete Farm Management System</p>
                                 </div>
                             </div>
-
-                            {/* CTA Buttons */}
-                            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                            
+                            <div className="flex items-center space-x-4">
                                 {auth.user ? (
-                                    <Link
-                                        href={route('home')}
-                                        className="inline-flex items-center justify-center px-8 py-4 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition-colors"
-                                    >
-                                        <span className="mr-2">🚀</span>
-                                        Open ERP Dashboard
-                                    </Link>
+                                    <div className="flex items-center space-x-4">
+                                        <span className="text-gray-700">Welcome back, {auth.user.name}!</span>
+                                        <Button asChild>
+                                            <Link href="/dashboard">Go to Dashboard</Link>
+                                        </Button>
+                                    </div>
                                 ) : (
-                                    <>
-                                        <Link
-                                            href={route('register')}
-                                            className="inline-flex items-center justify-center px-8 py-4 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition-colors"
-                                        >
-                                            <span className="mr-2">🚀</span>
-                                            Start Free Trial
-                                        </Link>
-                                        <Link
-                                            href={route('login')}
-                                            className="inline-flex items-center justify-center px-8 py-4 border-2 border-green-600 text-green-600 font-semibold rounded-lg hover:bg-green-50 transition-colors"
-                                        >
-                                            Sign In
-                                        </Link>
-                                    </>
+                                    <div className="flex items-center space-x-3">
+                                        <Button variant="outline" asChild>
+                                            <Link href="/login">Login</Link>
+                                        </Button>
+                                        <Button asChild>
+                                            <Link href="/register">Get Started</Link>
+                                        </Button>
+                                    </div>
                                 )}
                             </div>
                         </div>
+                    </div>
+                </header>
 
-                        {/* Right Visual/Screenshot */}
-                        <div className="flex-1 max-w-lg">
-                            <div className="bg-white rounded-xl shadow-2xl p-8 border border-gray-100">
-                                <div className="space-y-4">
-                                    <div className="h-4 bg-green-200 rounded w-3/4"></div>
-                                    <div className="h-4 bg-gray-200 rounded w-1/2"></div>
-                                    <div className="h-4 bg-blue-200 rounded w-2/3"></div>
-                                    
-                                    <div className="grid grid-cols-2 gap-4 my-6">
-                                        <div className="bg-green-50 p-4 rounded-lg">
-                                            <div className="h-6 bg-green-300 rounded w-1/2 mb-2"></div>
-                                            <div className="h-3 bg-green-200 rounded w-3/4"></div>
-                                        </div>
-                                        <div className="bg-blue-50 p-4 rounded-lg">
-                                            <div className="h-6 bg-blue-300 rounded w-1/2 mb-2"></div>
-                                            <div className="h-3 bg-blue-200 rounded w-3/4"></div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div className="h-4 bg-gray-200 rounded w-4/5"></div>
-                                    <div className="h-4 bg-gray-200 rounded w-3/5"></div>
-                                </div>
+                {/* Hero Section */}
+                <section className="py-20">
+                    <div className="max-w-7xl mx-auto px-6 text-center">
+                        <h2 className="text-5xl font-bold text-gray-900 mb-6">
+                            🎯 Complete Poultry Farm Management
+                        </h2>
+                        <p className="text-xl text-gray-600 mb-12 max-w-3xl mx-auto">
+                            Streamline your poultry operations with our comprehensive ERP system. 
+                            Manage breeding, hatchery, broiler, layer operations, inventory, accounting, and more in one integrated platform.
+                        </p>
+                        
+                        {!auth.user && (
+                            <div className="flex justify-center space-x-4">
+                                <Button size="lg" asChild>
+                                    <Link href="/register">Start Free Trial 🚀</Link>
+                                </Button>
+                                <Button size="lg" variant="outline" asChild>
+                                    <Link href="/login">Login to Dashboard</Link>
+                                </Button>
+                            </div>
+                        )}
+                    </div>
+                </section>
+
+                {/* Features Grid */}
+                <section className="py-16 bg-white/50">
+                    <div className="max-w-7xl mx-auto px-6">
+                        <h3 className="text-3xl font-bold text-center text-gray-900 mb-12">
+                            🏭 Complete Farm Operations Suite
+                        </h3>
+                        
+                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <Card className="border-green-200 hover:shadow-lg transition-shadow">
+                                <CardHeader>
+                                    <div className="text-3xl mb-2">🐣</div>
+                                    <CardTitle className="text-green-800">Breeding Management</CardTitle>
+                                </CardHeader>
+                                <CardContent>
+                                    <ul className="space-y-2 text-gray-600">
+                                        <li>• Cycle tracking & management</li>
+                                        <li>• Daily mortality reports</li>
+                                        <li>• Egg collection & sorting</li>
+                                        <li>• By-product management</li>
+                                    </ul>
+                                </CardContent>
+                            </Card>
+
+                            <Card className="border-blue-200 hover:shadow-lg transition-shadow">
+                                <CardHeader>
+                                    <div className="text-3xl mb-2">🥚</div>
+                                    <CardTitle className="text-blue-800">Hatchery Operations</CardTitle>
+                                </CardHeader>
+                                <CardContent>
+                                    <ul className="space-y-2 text-gray-600">
+                                        <li>• Batch management</li>
+                                        <li>• DOC production tracking</li>
+                                        <li>• Hatch rate analysis</li>
+                                        <li>• Cost calculations</li>
+                                    </ul>
+                                </CardContent>
+                            </Card>
+
+                            <Card className="border-orange-200 hover:shadow-lg transition-shadow">
+                                <CardHeader>
+                                    <div className="text-3xl mb-2">🍗</div>
+                                    <CardTitle className="text-orange-800">Broiler Production</CardTitle>
+                                </CardHeader>
+                                <CardContent>
+                                    <ul className="space-y-2 text-gray-600">
+                                        <li>• Batch management</li>
+                                        <li>• Weight & feed tracking</li>
+                                        <li>• FCR calculations</li>
+                                        <li>• Harvest management</li>
+                                    </ul>
+                                </CardContent>
+                            </Card>
+
+                            <Card className="border-yellow-200 hover:shadow-lg transition-shadow">
+                                <CardHeader>
+                                    <div className="text-3xl mb-2">🥚</div>
+                                    <CardTitle className="text-yellow-800">Layer Management</CardTitle>
+                                </CardHeader>
+                                <CardContent>
+                                    <ul className="space-y-2 text-gray-600">
+                                        <li>• Production cycles</li>
+                                        <li>• Daily egg production</li>
+                                        <li>• Production rate analysis</li>
+                                        <li>• Culling management</li>
+                                    </ul>
+                                </CardContent>
+                            </Card>
+
+                            <Card className="border-purple-200 hover:shadow-lg transition-shadow">
+                                <CardHeader>
+                                    <div className="text-3xl mb-2">📦</div>
+                                    <CardTitle className="text-purple-800">Inventory & Procurement</CardTitle>
+                                </CardHeader>
+                                <CardContent>
+                                    <ul className="space-y-2 text-gray-600">
+                                        <li>• Multi-warehouse management</li>
+                                        <li>• Purchase requests</li>
+                                        <li>• Stock transactions</li>
+                                        <li>• Asset management</li>
+                                    </ul>
+                                </CardContent>
+                            </Card>
+
+                            <Card className="border-indigo-200 hover:shadow-lg transition-shadow">
+                                <CardHeader>
+                                    <div className="text-3xl mb-2">💰</div>
+                                    <CardTitle className="text-indigo-800">Accounting & Finance</CardTitle>
+                                </CardHeader>
+                                <CardContent>
+                                    <ul className="space-y-2 text-gray-600">
+                                        <li>• Chart of accounts</li>
+                                        <li>• Journal entries</li>
+                                        <li>• Budget planning</li>
+                                        <li>• Financial reporting</li>
+                                    </ul>
+                                </CardContent>
+                            </Card>
+
+                            <Card className="border-teal-200 hover:shadow-lg transition-shadow">
+                                <CardHeader>
+                                    <div className="text-3xl mb-2">👥</div>
+                                    <CardTitle className="text-teal-800">HR & Payroll</CardTitle>
+                                </CardHeader>
+                                <CardContent>
+                                    <ul className="space-y-2 text-gray-600">
+                                        <li>• Employee management</li>
+                                        <li>• Attendance tracking</li>
+                                        <li>• Payroll processing</li>
+                                        <li>• Labor cost allocation</li>
+                                    </ul>
+                                </CardContent>
+                            </Card>
+
+                            <Card className="border-red-200 hover:shadow-lg transition-shadow">
+                                <CardHeader>
+                                    <div className="text-3xl mb-2">📊</div>
+                                    <CardTitle className="text-red-800">Reports & Analytics</CardTitle>
+                                </CardHeader>
+                                <CardContent>
+                                    <ul className="space-y-2 text-gray-600">
+                                        <li>• Production reports</li>
+                                        <li>• Financial statements</li>
+                                        <li>• Performance metrics</li>
+                                        <li>• Custom dashboards</li>
+                                    </ul>
+                                </CardContent>
+                            </Card>
+
+                            <Card className="border-gray-200 hover:shadow-lg transition-shadow">
+                                <CardHeader>
+                                    <div className="text-3xl mb-2">🏢</div>
+                                    <CardTitle className="text-gray-800">Organization Management</CardTitle>
+                                </CardHeader>
+                                <CardContent>
+                                    <ul className="space-y-2 text-gray-600">
+                                        <li>• Head office setup</li>
+                                        <li>• Business unit management</li>
+                                        <li>• Multi-location support</li>
+                                        <li>• Role-based access</li>
+                                    </ul>
+                                </CardContent>
+                            </Card>
+                        </div>
+                    </div>
+                </section>
+
+                {/* Benefits Section */}
+                <section className="py-16">
+                    <div className="max-w-7xl mx-auto px-6">
+                        <h3 className="text-3xl font-bold text-center text-gray-900 mb-12">
+                            ✨ Why Choose Our Poultry ERP?
+                        </h3>
+                        
+                        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                            <div className="text-center">
+                                <div className="text-4xl mb-4">⚡</div>
+                                <h4 className="text-lg font-semibold mb-2">Real-time Data</h4>
+                                <p className="text-gray-600">Live production metrics and instant reporting</p>
+                            </div>
+                            
+                            <div className="text-center">
+                                <div className="text-4xl mb-4">🔒</div>
+                                <h4 className="text-lg font-semibold mb-2">Secure & Reliable</h4>
+                                <p className="text-gray-600">Enterprise-grade security and data protection</p>
+                            </div>
+                            
+                            <div className="text-center">
+                                <div className="text-4xl mb-4">📱</div>
+                                <h4 className="text-lg font-semibold mb-2">Mobile Ready</h4>
+                                <p className="text-gray-600">Access your farm data from anywhere, anytime</p>
+                            </div>
+                            
+                            <div className="text-center">
+                                <div className="text-4xl mb-4">🤝</div>
+                                <h4 className="text-lg font-semibold mb-2">Expert Support</h4>
+                                <p className="text-gray-600">Dedicated support team with poultry expertise</p>
                             </div>
                         </div>
-                    </main>
-                </div>
+                    </div>
+                </section>
 
-                <footer className="mt-12 text-sm text-gray-500">
-                    <p>Comprehensive ERP solution for modern poultry farming operations</p>
+                {/* CTA Section */}
+                <section className="py-16 bg-green-600">
+                    <div className="max-w-4xl mx-auto text-center px-6">
+                        <h3 className="text-3xl font-bold text-white mb-4">
+                            🚀 Ready to Transform Your Poultry Farm?
+                        </h3>
+                        <p className="text-xl text-green-100 mb-8">
+                            Join thousands of poultry farmers who trust our ERP system to manage their operations efficiently.
+                        </p>
+                        
+                        {!auth.user && (
+                            <div className="flex justify-center space-x-4">
+                                <Button size="lg" variant="secondary" asChild>
+                                    <Link href="/register">Start Your Free Trial</Link>
+                                </Button>
+                                <Button size="lg" variant="outline" className="text-white border-white hover:bg-white hover:text-green-600" asChild>
+                                    <Link href="/login">Login Now</Link>
+                                </Button>
+                            </div>
+                        )}
+                    </div>
+                </section>
+
+                {/* Footer */}
+                <footer className="bg-gray-900 text-white py-12">
+                    <div className="max-w-7xl mx-auto px-6">
+                        <div className="flex flex-col md:flex-row justify-between items-center">
+                            <div className="flex items-center space-x-3 mb-4 md:mb-0">
+                                <div className="text-2xl">🐔</div>
+                                <div>
+                                    <h4 className="text-lg font-semibold">PoultryFarm ERP</h4>
+                                    <p className="text-gray-400 text-sm">Comprehensive Farm Management</p>
+                                </div>
+                            </div>
+                            
+                            <div className="flex items-center space-x-6 text-sm text-gray-400">
+                                <span>© 2024 PoultryFarm ERP</span>
+                                <span>•</span>
+                                <span>All Rights Reserved</span>
+                            </div>
+                        </div>
+                    </div>
                 </footer>
             </div>
         </>
