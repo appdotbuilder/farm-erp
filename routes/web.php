@@ -11,7 +11,34 @@ Route::get('/health-check', function () {
     ]);
 })->name('health-check');
 
-Route::get('/', [ErpDashboardController::class, 'index'])->name('home');
+Route::get('/', function () {
+    return Inertia::render('welcome');
+})->name('welcome');
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/erp-dashboard', [ErpDashboardController::class, 'index'])->name('home');
+    
+    // ERP Module Routes
+    Route::get('/organizations', function () {
+        return Inertia::render('organizations/index');
+    })->name('organizations');
+    
+    Route::get('/inventory', function () {
+        return Inertia::render('inventory/index');
+    })->name('inventory');
+    
+    Route::get('/warehouses', function () {
+        return Inertia::render('warehouses/index');
+    })->name('warehouses');
+    
+    Route::get('/employees', function () {
+        return Inertia::render('employees/index');
+    })->name('employees');
+    
+    Route::get('/reports', function () {
+        return Inertia::render('reports/index');
+    })->name('reports');
+});
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {

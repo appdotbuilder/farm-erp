@@ -15,10 +15,10 @@ export default function Welcome() {
                     <nav className="flex items-center justify-end gap-4">
                         {auth.user ? (
                             <Link
-                                href={route('dashboard')}
+                                href={route('home')}
                                 className="inline-block rounded-lg bg-green-600 px-6 py-3 text-sm font-medium text-white hover:bg-green-700 transition-colors"
                             >
-                                Go to Dashboard
+                                Go to ERP Dashboard
                             </Link>
                         ) : (
                             <>
@@ -80,11 +80,11 @@ export default function Welcome() {
                             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                                 {auth.user ? (
                                     <Link
-                                        href={route('dashboard')}
+                                        href={route('home')}
                                         className="inline-flex items-center justify-center px-8 py-4 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition-colors"
                                     >
                                         <span className="mr-2">🚀</span>
-                                        Open Dashboard
+                                        Open ERP Dashboard
                                     </Link>
                                 ) : (
                                     <>

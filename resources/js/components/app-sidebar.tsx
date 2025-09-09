@@ -4,14 +4,44 @@ import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid } from 'lucide-react';
+import { BookOpen, Building2, Folder, LayoutGrid, Package, Users, Warehouse, TrendingUp, Settings } from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
     {
-        title: 'Dashboard',
-        href: '/dashboard',
+        title: 'ERP Dashboard',
+        href: '/erp-dashboard',
         icon: LayoutGrid,
+    },
+    {
+        title: 'Organizations',
+        href: '/organizations',
+        icon: Building2,
+    },
+    {
+        title: 'Inventory',
+        href: '/inventory',
+        icon: Package,
+    },
+    {
+        title: 'Warehouses',
+        href: '/warehouses',
+        icon: Warehouse,
+    },
+    {
+        title: 'Employees',
+        href: '/employees',
+        icon: Users,
+    },
+    {
+        title: 'Reports',
+        href: '/reports',
+        icon: TrendingUp,
+    },
+    {
+        title: 'Settings',
+        href: '/dashboard',
+        icon: Settings,
     },
 ];
 
@@ -35,7 +65,7 @@ export function AppSidebar() {
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
-                            <Link href="/dashboard" prefetch>
+                            <Link href="/erp-dashboard" prefetch>
                                 <AppLogo />
                             </Link>
                         </SidebarMenuButton>
